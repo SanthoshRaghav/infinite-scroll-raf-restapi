@@ -1,32 +1,34 @@
 .feed {
-  padding: 10px;
+  padding: 20px 10px;
 }
 
 .feed-title {
   text-align: center;
   font-size: 28px;
-  margin-bottom: 10px;
 }
 
 .feed-area {
   border: 1px solid #eee;
-  height: 500px;
   overflow-y: scroll;
+  height: 500px;
+  margin-top: 30px;
   padding: 10px;
 }
 
 .feed-list {
   list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.feed-item {
+.feed-item,
+.feed-status {
   padding: 10px;
   background-color: #383838;
-  margin-bottom: 10px;
 }
 
 .feed-status {
-  padding: 10px;
+  margin-top: 10px;
   text-align: center;
-  background-color: #383838;
 }
