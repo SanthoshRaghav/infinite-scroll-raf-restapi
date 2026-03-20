@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './App.css';
 
 const LIMIT = 10;
@@ -19,11 +19,11 @@ export default function App() {
   const pageRef = useRef(1);
   const [isLoading, setIsLoading] = useState(false);
   const abortControllerRef = useRef(null);
-  const isTicking = useRef(false);
+  const isTickingRef = useRef(false);
   const isFetchingRef = useRef(false);
   const hasMoreRef = useRef(true);
 
-  const fetchPosts = async (ignoreRef) => {
+  const fetchPosts = useCallback(async (ignoreRef) => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
 
@@ -58,7 +58,7 @@ export default function App() {
       }
       isFetchingRef.current = false;
     }
-  };
+  }, []);
 
   useEffect(() => {
     const el = feedAreaRef.current;
@@ -67,8 +67,8 @@ export default function App() {
     fetchPosts(ignoreRef);
 
     const handleScroll = () => {
-      if (isTicking.current) return;
-      isTicking.current = true;
+      if (isTickingRef.current) return;
+      isTickingRef.current = true;
 
       requestAnimationFrame(() => {
         const { clientHeight, scrollTop, scrollHeight } = el;
@@ -78,7 +78,7 @@ export default function App() {
         ) {
           fetchPosts(ignoreRef);
         }
-        isTicking.current = false;
+        isTickingRef.current = false;
       });
     };
 
